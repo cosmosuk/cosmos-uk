@@ -1,7 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 import { HOME } from "@/lib/content";
 import { Button } from "@/components/ui/Button";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+// Portrait → tall left column. Two landscapes → stacked right column.
+import imgTall from "@/assets/Home/Image2.jpeg";
+import imgWide1 from "@/assets/Home/Image1.jpg";
+import imgWide2 from "@/assets/Home/Image3.jpeg";
 
 export function Hero() {
   const { hero } = HOME;
@@ -18,16 +22,22 @@ export function Hero() {
       {/* Right-side image grid */}
       <div
         className="absolute top-0 right-0 bottom-0 w-[46%] grid gap-1 p-1"
-        style={{ gridTemplateColumns: "1fr 1fr", gridTemplateRows: "1fr 1fr" }}
+        style={{ gridTemplateColumns: "1fr 1fr" }}
       >
-        <ImagePlaceholder
-          bgClass="bg-[#182e58]"
-          className="rounded-none"
-          style={{ gridRow: "1 / 3" }}
-          showIcon
-        />
-        <ImagePlaceholder bgClass="bg-[#1c3464]" className="rounded-none" />
-        <ImagePlaceholder bgClass="bg-[#14274c]" className="rounded-none" />
+        {/* Left column – tall portrait image */}
+        <div className="relative overflow-hidden">
+          <Image src={imgTall} alt="" fill className="object-cover" />
+        </div>
+
+        {/* Right column – two landscape images stacked */}
+        <div className="flex flex-col gap-1 overflow-hidden h-full">
+          <div className="flex-1 relative overflow-hidden">
+            <Image src={imgWide1} alt="" fill className="object-cover" />
+          </div>
+          <div className="flex-1 relative overflow-hidden">
+            <Image src={imgWide2} alt="" fill className="object-cover object-center" />
+          </div>
+        </div>
       </div>
 
       {/* Dark gradient veil */}
@@ -61,7 +71,7 @@ export function Hero() {
           {hero.heading}
         </h1>
 
-        <p className="text-[15px] text-white/58 max-w-[460px] leading-[1.72] mb-8">
+        <p className="text-[15px] text-white/60 max-w-[460px] leading-[1.72] mb-8">
           {hero.body}
         </p>
 
@@ -84,7 +94,7 @@ export function Hero() {
               <div className="font-playfair text-[34px] font-semibold text-white leading-none">
                 {number}
               </div>
-              <div className="text-[10.5px] text-white/36 uppercase tracking-[0.1em] mt-[5px]">
+              <div className="text-[10.5px] text-white/60 uppercase tracking-[0.1em] mt-[5px]">
                 {label}
               </div>
             </div>

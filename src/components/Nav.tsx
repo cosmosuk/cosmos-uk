@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { NAV, SITE } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import logo from "@/assets/logo.jpg";
 
 const NAV_LINKS = [
   { label: NAV.home, href: "/" },
@@ -24,13 +26,8 @@ export function Nav() {
     >
       {/* Logo */}
       <Link href="/" className="flex items-center gap-2.5 cursor-pointer no-underline">
-        <div
-          className="w-9 h-9 rounded-md flex items-center justify-center flex-shrink-0"
-          style={{ background: "var(--color-gold)" }}
-        >
-          <span className="font-playfair text-[17px] font-semibold text-white leading-none">
-            {SITE.logoLetter}
-          </span>
+        <div className="w-9 h-9 rounded-md overflow-hidden flex-shrink-0">
+          <Image src={logo} alt={SITE.name} width={36} height={36} className="object-cover w-full h-full" />
         </div>
         <div>
           <div className="text-[13px] font-medium text-white tracking-[0.02em]">

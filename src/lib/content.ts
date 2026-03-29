@@ -2,7 +2,7 @@
 export const SITE = {
   name: "COSMOS UK",
   fullName: "The Council of Sri Lankan Muslim Organisations UK",
-  tagline: "Sri Lankan Muslim Organisations",
+  tagline: "The Council of Sri Lankan Muslim Organisations",// "Sri Lankan Muslim Organisations",
   established: "Established 2014 · United Kingdom",
   memberCount: "26",
   yearsOfService: "10+",
@@ -20,7 +20,7 @@ export const NAV = {
   home: "Home",
   press: "Press releases",
   about: "About",
-  donate: "Donate now",
+  donate: "Support",
 } as const;
 
 // ─── Footer links ─────────────────────────────────────────────────────────────
