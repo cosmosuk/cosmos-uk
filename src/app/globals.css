@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design tokens ──────────────────────────────────────────────────────────── */
+:root {
+  /* Colors */
+  --color-navy:         #0f1f3d;
+  --color-navy-mid:     #1a3260;
+  --color-navy-light:   #243a72;
+  --color-gold:         #b5892a;
+  --color-gold-light:   #cfa84e;
+  --color-gold-pale:    #f5eddb;
+  --color-cream:        #f7f4ee;
+  --color-text:         #111827;
+  --color-muted:        #6b7280;
+  --color-subtle:       #9ca3af;
+  --color-border:       #e5e0d5;
+  --color-border-dark:  rgba(15, 31, 61, 0.12);
+
+  /* Typography */
+  --font-playfair: var(--font-playfair-display);
+  --font-inter:    var(--font-inter-sans);
+
+  /* Spacing */
+  --content-max-width: 1080px;
+  --section-padding-y: 68px;
+  --section-padding-x: 2rem;
+  --nav-height:        62px;
+}
+
+/* ─── Base resets ────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+  background: #ffffff;
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Utility layers ─────────────────────────────────────────────────────────── */
+@layer utilities {
+  .font-playfair { font-family: var(--font-playfair), 'Playfair Display', Georgia, serif; }
+  .font-inter    { font-family: var(--font-inter), 'Inter', system-ui, sans-serif; }
+
+  .text-navy        { color: var(--color-navy); }
+  .text-navy-mid    { color: var(--color-navy-mid); }
+  .text-gold        { color: var(--color-gold); }
+  .text-gold-light  { color: var(--color-gold-light); }
+  .text-muted       { color: var(--color-muted); }
+  .text-subtle      { color: var(--color-subtle); }
+
+  .bg-cream      { background-color: var(--color-cream); }
+  .bg-navy       { background-color: var(--color-navy); }
+  .bg-navy-mid   { background-color: var(--color-navy-mid); }
+  .bg-gold       { background-color: var(--color-gold); }
+  .bg-gold-pale  { background-color: var(--color-gold-pale); }
+
+  .border-custom        { border-color: var(--color-border); }
+  .border-gold          { border-color: var(--color-gold); }
+
+  /* Striped overlay used on image placeholders */
+  .ph-stripe {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      rgba(255,255,255,.025) 0,
+      rgba(255,255,255,.025) 1px,
+      transparent 1px,
+      transparent 16px
+    );
+  }
+
+  /* Section wrapper */
+  .section-wrap {
+    max-width: var(--content-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding: var(--section-padding-y) var(--section-padding-x);
+  }
+}
+
+/* ─── Scrollbar (optional subtle style) ─────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
