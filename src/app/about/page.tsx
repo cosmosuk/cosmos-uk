@@ -1,4 +1,5 @@
 import { ABOUT } from "@/lib/content";
+import { getAboutUs } from "@/lib/csv";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { Footer } from "@/components/Footer";
@@ -7,8 +8,36 @@ export const metadata = {
   title: "About – COSMOS UK",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
   const { intro, stats, mission, timeline } = ABOUT;
+  const aboutText = await getAboutUs();
+  const allParagraphs = aboutText
+    .split("\n\n")
+    .map((p) => p.trim())
+    .filter((p) => p && p !== "COSMOS UK");
+
+  const affiliatesIdx = allParagraphs.findIndex((p) =>
+    p.startsWith("Our Affiliates are")
+  );
+
+  const historyParagraphs =
+    affiliatesIdx !== -1 ? allParagraphs.slice(0, affiliatesIdx) : allParagraphs;
+
+  let affiliates: string[] = [];
+  let affiliatesNote = "";
+  if (affiliatesIdx !== -1 && allParagraphs[affiliatesIdx + 1]) {
+    const lines = allParagraphs[affiliatesIdx + 1]
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(Boolean);
+    const last = lines[lines.length - 1];
+    if (last.toLowerCase().startsWith("full name")) {
+      affiliatesNote = last;
+      affiliates = lines.slice(0, -1);
+    } else {
+      affiliates = lines;
+    }
+  }
 
   return (
     <>
@@ -21,7 +50,7 @@ export default function AboutPage() {
           <h1 className="font-playfair text-[38px] font-semibold text-white tracking-[-0.01em] mb-2">
             {ABOUT.heading}
           </h1>
-          <p className="text-[14.5px] text-white/44">{ABOUT.subtitle}</p>
+          <p className="text-[14.5px] text-white/60">{ABOUT.subtitle}</p>
         </div>
       </div>
 
@@ -77,6 +106,41 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
+
+      {/* History */}
+      <section className="section-wrap">
+        <SectionHeader eyebrow="Our History" title="The Humble Origins of COSMOS" />
+        <div className="columns-2 gap-10">
+          {historyParagraphs.map((p, i) => (
+            <p
+              key={i}
+              className="text-[14px] text-muted leading-[1.8] mb-4 break-inside-avoid"
+            >
+              {p}
+            </p>
+          ))}
+        </div>
+      </section>
+
+      {/* Affiliates */}
+      {affiliates.length > 0 && (
+        <section className="bg-cream">
+          <div className="section-wrap">
+            <SectionHeader eyebrow="Member Organisations" title="Our Affiliates" />
+            <ul className="grid grid-cols-3 gap-x-6 gap-y-2.5">
+              {affiliates.map((name) => (
+                <li key={name} className="flex items-start gap-2">
+                  <span className="mt-[5px] shrink-0 w-1.5 h-1.5 rounded-full bg-gold" />
+                  <span className="text-[14px] text-muted leading-[1.6]">{name}</span>
+                </li>
+              ))}
+            </ul>
+            {affiliatesNote && (
+              <p className="mt-5 text-[12px] text-muted/60 italic">{affiliatesNote}</p>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Mission cards + timeline */}
       <section className="bg-cream">

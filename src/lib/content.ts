@@ -2,7 +2,7 @@
 export const SITE = {
   name: "COSMOS UK",
   fullName: "The Council of Sri Lankan Muslim Organisations UK",
-  tagline: "The Council of Sri Lankan Muslim Organisations",// "Sri Lankan Muslim Organisations",
+  tagline: "The Council of Sri Lankan Muslim Organisations",
   established: "Established 2014 · United Kingdom",
   memberCount: "26",
   yearsOfService: "10+",
@@ -51,7 +51,7 @@ export const HOME = {
   },
 
   hero: {
-    eyebrow: "Established 2014 · United Kingdom",
+    eyebrow: "Established 2012 · United Kingdom",
     heading: "Uniting Sri Lankan Muslim Communities Across the UK",
     body: "COSMOS UK is the national umbrella body representing 26 Sri Lankan Muslim organisations – advocating, connecting and supporting our community at home and abroad.",
     ctaPrimary: "About COSMOS UK",

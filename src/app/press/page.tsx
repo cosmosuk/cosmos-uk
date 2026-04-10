@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { PRESS } from "@/lib/content";
+import { getPressReleases } from "@/lib/csv";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { Footer } from "@/components/Footer";
 
@@ -6,7 +8,17 @@ export const metadata = {
   title: "Press releases – COSMOS UK",
 };
 
-export default function PressPage() {
+function formatDay(d: Date): string {
+  return String(d.getDate()).padStart(2, "0");
+}
+
+function formatMonth(d: Date): string {
+  return d.toLocaleDateString("en-GB", { month: "short", year: "2-digit" }).replace(" ", " '");
+}
+
+export default async function PressPage() {
+  const pressReleases = await getPressReleases();
+
   return (
     <>
       {/* Page hero */}
@@ -36,14 +48,15 @@ export default function PressPage() {
       {/* Press list */}
       <section className="section-wrap" style={{ paddingTop: "44px" }}>
         <div className="border border-[var(--color-border)] rounded-[10px] overflow-hidden">
-          {PRESS.items.map((item, i) => (
-            <div
-              key={item.title}
-              className="grid items-center gap-[18px] px-[22px] py-5 bg-white hover:bg-cream cursor-pointer transition-colors duration-150 group"
+          {pressReleases.map((item, i) => (
+            <Link
+              key={item.titleKey}
+              href={`/press/${item.titleKey}`}
+              className="grid items-center gap-[18px] px-[22px] py-5 bg-white hover:bg-cream transition-colors duration-150 group no-underline"
               style={{
                 gridTemplateColumns: "58px 1fr 20px",
                 borderBottom:
-                  i < PRESS.items.length - 1
+                  i < pressReleases.length - 1
                     ? "1px solid var(--color-border)"
                     : "none",
               }}
@@ -51,17 +64,17 @@ export default function PressPage() {
               {/* Date block */}
               <div className="text-center flex-shrink-0">
                 <div className="font-playfair text-[26px] font-semibold text-navy leading-none">
-                  {item.day}
+                  {formatDay(item.created)}
                 </div>
                 <div className="text-[10px] uppercase tracking-[0.1em] text-subtle mt-0.5">
-                  {item.month}
+                  {formatMonth(item.created)}
                 </div>
               </div>
 
               {/* Content */}
               <div>
                 <div className="text-[10px] uppercase tracking-[0.12em] font-semibold text-gold mb-[5px]">
-                  {item.category}
+                  {item.type}
                 </div>
                 <div className="text-[14px] font-medium text-navy leading-[1.42] group-hover:text-gold transition-colors duration-150">
                   {item.title}
@@ -72,7 +85,7 @@ export default function PressPage() {
               <div className="text-[18px] text-[var(--color-border-dark)] opacity-40 group-hover:text-gold group-hover:opacity-100 transition-all duration-150">
                 ›
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
