@@ -3,7 +3,7 @@ import Image from "next/image";
 import { PRESS } from "@/lib/content";
 import { getPressReleases } from "@/lib/csv";
 import { Footer } from "@/components/Footer";
-import logo from "@/assets/logo.jpg";
+import logo from "@/assets/logo.svg";
 
 function toPreviewUrl(url: string): string {
   const match = url.match(/\/file\/d\/([^/]+)\//);

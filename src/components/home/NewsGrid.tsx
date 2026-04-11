@@ -4,7 +4,7 @@ import { HOME } from "@/lib/content";
 import { getPressReleases } from "@/lib/csv";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
-import logo from "@/assets/logo.jpg";
+import logo from "@/assets/logo.svg";
 
 
 function formatDate(d: Date): string {

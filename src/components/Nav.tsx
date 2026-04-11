@@ -5,7 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { NAV, SITE } from "@/lib/content";
 import { cn } from "@/lib/utils";
-import logo from "@/assets/logo.jpg";
+import logo from "@/assets/logo.svg";
 
 const NAV_LINKS = [
   { label: NAV.home, href: "/" },

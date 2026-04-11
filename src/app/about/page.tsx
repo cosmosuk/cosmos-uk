@@ -1,5 +1,5 @@
 import { ABOUT } from "@/lib/content";
-import { getAboutUs } from "@/lib/csv";
+import { getAboutUs, getImages } from "@/lib/csv";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { Footer } from "@/components/Footer";
@@ -10,7 +10,13 @@ export const metadata = {
 
 export default async function AboutPage() {
   const { intro, stats, mission, timeline } = ABOUT;
-  const aboutText = await getAboutUs();
+  const [aboutText, images] = await Promise.all([getAboutUs(), getImages()]);
+
+  const bannerUrl = images["IMG_BANNER_LOGO"];
+  const bannerPreview = bannerUrl
+    ? `https://drive.google.com/file/d/${bannerUrl.match(/\/file\/d\/([^/]+)\//)?.[1]}/preview`
+    : null;
+
   const allParagraphs = aboutText
     .split("\n\n")
     .map((p) => p.trim())
@@ -57,12 +63,18 @@ export default async function AboutPage() {
       {/* Intro split */}
       <section className="section-wrap">
         <div className="grid grid-cols-2 gap-14 items-center">
-          <div className="rounded-[10px] overflow-hidden aspect-[4/5]">
-            <ImagePlaceholder
-              className="w-full h-full"
-              bgClass="bg-[#1a2f58]"
-              showIcon
-            />
+          <div className="rounded-[10px] overflow-hidden aspect-[4/5] relative bg-navy">
+            {bannerPreview ? (
+              <iframe
+                src={bannerPreview}
+                title="COSMOS UK banner"
+                allow="autoplay"
+                className="absolute border-0 pointer-events-none"
+                style={{ width: "calc(100% + 120px)", left: "-60px", top: 0, height: "100%" }}
+              />
+            ) : (
+              <ImagePlaceholder className="w-full h-full" bgClass="bg-[#1a2f58]" showIcon />
+            )}
           </div>
           <div>
             <p

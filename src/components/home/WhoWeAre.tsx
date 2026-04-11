@@ -1,20 +1,29 @@
 import { HOME } from "@/lib/content";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { getImages } from "@/lib/csv";
 
-export function WhoWeAre() {
+export async function WhoWeAre() {
   const { who } = HOME;
+  const images = await getImages();
+  const bannerUrl = images["IMG_BANNER_LOGO"];
+  const previewSrc = bannerUrl
+    ? `https://drive.google.com/file/d/${bannerUrl.match(/\/file\/d\/([^/]+)\//)?.[1]}/preview`
+    : null;
 
   return (
     <section className="bg-cream">
       <div className="section-wrap">
         <div className="grid grid-cols-2 gap-14 items-center">
           {/* Image */}
-          <div className="rounded-[10px] overflow-hidden aspect-[4/5]">
-            <ImagePlaceholder
-              className="w-full h-full"
-              bgClass="bg-[#1a2f58]"
-              showIcon
-            />
+          <div className="rounded-[10px] overflow-hidden aspect-[4/5] relative bg-navy">
+            {previewSrc ? (
+              <iframe
+                src={previewSrc}
+                title="COSMOS UK banner"
+                allow="autoplay"
+                className="absolute border-0 pointer-events-none"
+                style={{ width: "calc(100% + 120px)", left: "-60px", top: 0, height: "100%" }}
+              />
+            ) : null}
           </div>
 
           {/* Text */}
@@ -41,7 +50,6 @@ export function WhoWeAre() {
                   style={{
                     background: "var(--color-cream)",
                     borderLeft: "2px solid var(--color-gold)",
-                    // slightly whiter to differentiate from outer cream
                     backgroundColor: "#f0ece3",
                   }}
                 >
