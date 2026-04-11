@@ -71,6 +71,8 @@ export default async function PressDetailPage({
     year: "numeric",
   });
 
+  const hasImages = release.images.length > 0;
+
   return (
     <>
       {/* Page hero */}
@@ -89,29 +91,32 @@ export default async function PressDetailPage({
         </div>
       </div>
 
-      {/* Carousel — only rendered when images exist */}
-      {release.images.length > 0 && (
-        <div className="bg-[#202124] py-8">
-          <div className="max-w-content mx-auto">
-            <ImageCarousel images={release.images} />
-          </div>
-        </div>
-      )}
-
-      {/* Content */}
+      {/* Body */}
       <section className="section-wrap">
-        <div className="max-w-[720px]">
-          {renderContent(release.content)}
-        </div>
+        <div className={hasImages ? "grid grid-cols-[1fr_420px] gap-12 items-start" : ""}>
 
-        {/* Back link */}
-        <div className="mt-12 pt-8 border-t border-[var(--color-border)]">
-          <Link
-            href="/press"
-            className="text-[13px] text-subtle hover:text-navy transition-colors duration-150"
-          >
-            ← Back to press releases
-          </Link>
+          {/* Left — scrollable text */}
+          <div>
+            {renderContent(release.content)}
+
+            <div className="mt-12 pt-8 border-t border-[var(--color-border)]">
+              <Link
+                href="/press"
+                className="text-[13px] text-subtle hover:text-navy transition-colors duration-150"
+              >
+                ← Back to press releases
+              </Link>
+            </div>
+          </div>
+
+          {/* Right — sticky carousel */}
+          {hasImages && (
+            <div className="sticky top-[78px]">
+              <div className="bg-[#202124] rounded-[12px] p-4 pt-6">
+                <ImageCarousel images={release.images} />
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

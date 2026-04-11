@@ -102,6 +102,7 @@ export enum PressReleaseType {
   Commemoration = "Commemoration",
   Meeting = "Meeting",
   AGM = "AGM",
+  Press = "Press",
   Statement = "Statement",
   Unknown = "Unknown",
 }
@@ -112,6 +113,7 @@ const TYPE_MAP: Record<string, PressReleaseType> = {
   commemoration: PressReleaseType.Commemoration,
   meeting: PressReleaseType.Meeting,
   agm: PressReleaseType.AGM,
+  press: PressReleaseType.Press,
   statement: PressReleaseType.Statement,
 };
 
@@ -122,6 +124,9 @@ export interface PressRelease {
   content: string;
   created: Date;
   updated: Date;
+  /** Resolved URL of the .PREVIEW image, if present */
+  preview: string | null;
+  /** All non-preview image URLs */
   images: string[];
 }
 
@@ -130,7 +135,7 @@ export interface PressRelease {
  * Sorted newest-first by created date.
  */
 export async function getPressReleases(): Promise<PressRelease[]> {
-  const [rows, strings, images] = await Promise.all([
+  const [rows, strings, imageMap] = await Promise.all([
     loadCSV("DBPressRelease.csv"),
     getStringCatalog(),
     getImages(),
@@ -138,9 +143,16 @@ export async function getPressReleases(): Promise<PressRelease[]> {
 
   return rows
     .map((r): PressRelease => {
-      const imageKeys = r.IMAGES
+      const allKeys = r.IMAGES
         ? r.IMAGES.split(",").map((k) => k.trim()).filter(Boolean)
         : [];
+
+      const previewKey = allKeys.find((k) => k.endsWith(".PREVIEW"));
+      const preview = previewKey ? (imageMap[previewKey] ?? null) : null;
+      const images = allKeys
+        .filter((k) => !k.endsWith(".PREVIEW"))
+        .map((k) => imageMap[k])
+        .filter(Boolean);
 
       return {
         titleKey: r.TITLE,
@@ -149,7 +161,8 @@ export async function getPressReleases(): Promise<PressRelease[]> {
         content: strings[r.CONTENT] ?? r.CONTENT,
         created: new Date(r.CREATED),
         updated: new Date(r.UPDATED),
-        images: imageKeys.map((k) => images[k]).filter(Boolean),
+        preview,
+        images,
       };
     })
     .sort((a, b) => b.created.getTime() - a.created.getTime());

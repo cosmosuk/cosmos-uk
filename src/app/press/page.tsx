@@ -1,8 +1,15 @@
 import Link from "next/link";
+import Image from "next/image";
 import { PRESS } from "@/lib/content";
 import { getPressReleases } from "@/lib/csv";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { Footer } from "@/components/Footer";
+import logo from "@/assets/logo.jpg";
+
+function toPreviewUrl(url: string): string {
+  const match = url.match(/\/file\/d\/([^/]+)\//);
+  if (match) return `https://drive.google.com/file/d/${match[1]}/preview`;
+  return url;
+}
 
 export const metadata = {
   title: "Press releases – COSMOS UK",
@@ -34,16 +41,31 @@ export default async function PressPage() {
         </div>
       </div>
 
-      {/* Featured image banner */}
-      <div className="bg-cream px-8">
-        <div className="max-w-content mx-auto">
-          <ImagePlaceholder
-            className="h-[220px] rounded-[10px] -mt-9 relative z-10"
-            bgClass="bg-[#1a2f58]"
-            showIcon
-          />
-        </div>
-      </div>
+      {/* Featured image banner — most recent release with a preview */}
+      {(() => {
+        const featured = pressReleases.find((r) => r.preview);
+        return (
+          <div className="bg-cream px-8">
+            <div className="max-w-content mx-auto">
+              <div className="h-[220px] rounded-[10px] -mt-9 relative z-10 overflow-hidden">
+                {featured?.preview ? (
+                  <iframe
+                    src={toPreviewUrl(featured.preview)}
+                    title={featured.title}
+                    allow="autoplay"
+                    className="absolute border-0 h-full pointer-events-none"
+                    style={{ width: "calc(100% + 120px)", left: "-60px", top: 0 }}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-navy flex items-center justify-center">
+                    <Image src={logo} alt="COSMOS UK" width={80} height={80} className="rounded-lg opacity-80" />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Press list */}
       <section className="section-wrap" style={{ paddingTop: "44px" }}>

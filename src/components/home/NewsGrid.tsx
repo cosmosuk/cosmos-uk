@@ -1,11 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 import { HOME } from "@/lib/content";
 import { getPressReleases } from "@/lib/csv";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import logo from "@/assets/logo.jpg";
 
-const BG_CLASSES = ["bg-[#1a2f58]", "bg-[#1e3568]", "bg-[#15284e]"];
 
 function formatDate(d: Date): string {
   return d.toLocaleDateString("en-GB", {
@@ -13,6 +13,12 @@ function formatDate(d: Date): string {
     month: "long",
     year: "numeric",
   });
+}
+
+function toPreviewUrl(url: string): string {
+  const match = url.match(/\/file\/d\/([^/]+)\//);
+  if (match) return `https://drive.google.com/file/d/${match[1]}/preview`;
+  return url;
 }
 
 export async function NewsGrid() {
@@ -29,17 +35,27 @@ export async function NewsGrid() {
       />
 
       <div className="grid grid-cols-3 gap-3.5">
-        {items.map((item, i) => (
+        {items.map((item) => (
           <Link
             key={item.titleKey}
-            href="/press"
+            href={`/press/${item.titleKey}`}
             className="group rounded-[10px] overflow-hidden border border-[var(--color-border)] bg-white hover:border-gold transition-colors duration-150 no-underline block"
           >
-            <ImagePlaceholder
-              className="h-[188px] w-full"
-              bgClass={BG_CLASSES[i]}
-              showIcon
-            />
+            <div className="h-[188px] w-full relative overflow-hidden">
+              {item.preview ? (
+                <iframe
+                  src={toPreviewUrl(item.preview)}
+                  title={item.title}
+                  allow="autoplay"
+                  className="absolute border-0 h-full pointer-events-none"
+                  style={{ width: "calc(100% + 120px)", left: "-60px", top: 0 }}
+                />
+              ) : (
+                <div className="w-full h-full bg-navy flex items-center justify-center">
+                  <Image src={logo} alt="COSMOS UK" width={72} height={72} className="rounded-lg opacity-80" />
+                </div>
+              )}
+            </div>
             <div className="p-5">
               <span
                 className="inline-block text-[10px] font-semibold tracking-[0.12em] uppercase px-[9px] py-[3px] rounded-[3px] mb-2.5"
