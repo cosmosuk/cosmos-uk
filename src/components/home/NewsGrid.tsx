@@ -48,7 +48,7 @@ export async function NewsGrid() {
                   title={item.title}
                   allow="autoplay"
                   className="absolute border-0 h-full pointer-events-none"
-                  style={{ width: "calc(100% + 120px)", left: "-60px", top: 0 }}
+                  style={{ width: "calc(100% + 120px)", left: "-60px", top: 0, overflow: "hidden" }}
                 />
               ) : (
                 <div className="w-full h-full bg-navy flex items-center justify-center">

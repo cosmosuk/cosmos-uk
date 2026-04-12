@@ -70,7 +70,7 @@ export default async function AboutPage() {
                 title="COSMOS UK banner"
                 allow="autoplay"
                 className="absolute border-0 pointer-events-none"
-                style={{ width: "calc(100% + 120px)", left: "-60px", top: 0, height: "100%" }}
+                style={{ width: "calc(100% + 120px)", left: "-60px", top: 0, height: "100%", overflow: "hidden" }}
               />
             ) : (
               <ImagePlaceholder className="w-full h-full" bgClass="bg-[#1a2f58]" showIcon />
@@ -162,16 +162,40 @@ export default async function AboutPage() {
           <div className="grid grid-cols-3 gap-3.5">
             {mission.cards.map((card, i) => {
               const bgClasses = ["bg-[#1c3260]", "bg-[#15274c]", "bg-[#1e3568]"];
+              const icons = [
+                // Advocacy — parliament / pillars
+                <svg key="advocacy" viewBox="0 0 48 48" fill="none" className="w-20 h-20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="6" y="38" width="36" height="4" rx="1" />
+                  <rect x="10" y="20" width="4" height="18" />
+                  <rect x="22" y="20" width="4" height="18" />
+                  <rect x="34" y="20" width="4" height="18" />
+                  <polygon points="24,8 6,20 42,20" />
+                </svg>,
+                // Relief — hands holding a heart
+                <svg key="relief" viewBox="0 0 48 48" fill="none" className="w-20 h-20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M24 14c0-3.3 2.7-6 6-6s6 2.7 6 6c0 6-6 11-6 11" />
+                  <path d="M24 14c0-3.3-2.7-6-6-6s-6 2.7-6 6c0 6 6 11 6 11" />
+                  <path d="M8 30c0 0 4-3 8-3h2l6 4 6-4h2c4 0 8 3 8 3" />
+                  <path d="M8 30v6a2 2 0 0 0 2 2h28a2 2 0 0 0 2-2v-6" />
+                </svg>,
+                // Community — connected people
+                <svg key="community" viewBox="0 0 48 48" fill="none" className="w-20 h-20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="24" cy="12" r="5" />
+                  <circle cx="10" cy="30" r="5" />
+                  <circle cx="38" cy="30" r="5" />
+                  <line x1="24" y1="17" x2="10" y2="25" />
+                  <line x1="24" y1="17" x2="38" y2="25" />
+                  <line x1="15" y1="30" x2="33" y2="30" />
+                </svg>,
+              ];
               return (
                 <div
                   key={card.eyebrow}
                   className="bg-white border border-[var(--color-border)] rounded-[10px] overflow-hidden hover:border-gold transition-colors duration-150"
                 >
-                  <ImagePlaceholder
-                    className="h-[150px] w-full"
-                    bgClass={bgClasses[i]}
-                    showIcon
-                  />
+                  <div className={`h-[150px] w-full flex items-center justify-center text-white/40 ${bgClasses[i]}`}>
+                    {icons[i]}
+                  </div>
                   <div className="p-5">
                     <p
                       className="text-[10px] font-semibold tracking-[0.18em] uppercase mb-1.5"

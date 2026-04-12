@@ -120,7 +120,7 @@ export default async function PressDetailPage({
         </div>
       </section>
 
-      <Footer minimal />
+      <Footer />
     </>
   );
 }

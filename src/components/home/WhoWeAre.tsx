@@ -21,7 +21,7 @@ export async function WhoWeAre() {
                 title="COSMOS UK banner"
                 allow="autoplay"
                 className="absolute border-0 pointer-events-none"
-                style={{ width: "calc(100% + 120px)", left: "-60px", top: 0, height: "100%" }}
+                style={{ width: "calc(100% + 120px)", left: "-60px", top: 0, height: "100%", overflow: "hidden" }}
               />
             ) : null}
           </div>

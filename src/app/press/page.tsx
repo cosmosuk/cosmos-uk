@@ -37,11 +37,11 @@ export default async function PressPage() {
           <h1 className="font-playfair text-[38px] font-semibold text-white tracking-[-0.01em] mb-2">
             {PRESS.heading}
           </h1>
-          <p className="text-[14.5px] text-white/44">{PRESS.subtitle}</p>
+          <p className="text-[14.5px] text-white/60">{PRESS.subtitle}</p>
         </div>
       </div>
 
-      {/* Featured image banner — most recent release with a preview */}
+      {/* Featured image banner — most recent release with a preview
       {(() => {
         const featured = pressReleases.find((r) => r.preview);
         return (
@@ -65,7 +65,7 @@ export default async function PressPage() {
             </div>
           </div>
         );
-      })()}
+      })()} */}
 
       {/* Press list */}
       <section className="section-wrap" style={{ paddingTop: "44px" }}>
@@ -112,7 +112,7 @@ export default async function PressPage() {
         </div>
       </section>
 
-      <Footer minimal />
+      <Footer />
     </>
   );
 }

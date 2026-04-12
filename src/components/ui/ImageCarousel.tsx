@@ -38,7 +38,7 @@ export function ImageCarousel({ images }: { images: string[] }) {
             title={`Image ${index + 1} of ${images.length}`}
             allow="autoplay"
             className="absolute border-0 h-full"
-            style={{ width: "calc(100% + 120px)", left: "-60px" }}
+            style={{ width: "calc(100% + 120px)", left: "-60px", overflow: "hidden" }}
           />
         </div>
 
