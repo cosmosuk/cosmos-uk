@@ -76,7 +76,7 @@ export default async function PressDetailPage({
   return (
     <>
       {/* Page hero */}
-      <div className="bg-navy px-8 pt-[52px] pb-12">
+      <div className="bg-navy px-5 md:px-8 pt-[52px] pb-12">
         <div className="max-w-content mx-auto">
           <p className="text-[10px] font-semibold tracking-[0.18em] uppercase text-gold mb-3">
             {PRESS.eyebrow}
@@ -93,7 +93,7 @@ export default async function PressDetailPage({
 
       {/* Body */}
       <section className="section-wrap">
-        <div className={hasImages ? "grid grid-cols-[1fr_420px] gap-12 items-start" : ""}>
+        <div className={hasImages ? "grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8 lg:gap-12 items-start" : ""}>
 
           {/* Left — scrollable text */}
           <div>
@@ -111,7 +111,7 @@ export default async function PressDetailPage({
 
           {/* Right — sticky carousel */}
           {hasImages && (
-            <div className="sticky top-[78px]">
+            <div className="lg:sticky lg:top-[78px]">
               <div className="bg-[#202124] rounded-[12px] p-4 pt-6">
                 <ImageCarousel images={release.images} />
               </div>

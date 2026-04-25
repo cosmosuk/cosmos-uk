@@ -12,9 +12,9 @@ export async function WhoWeAre() {
   return (
     <section className="bg-cream">
       <div className="section-wrap">
-        <div className="grid grid-cols-2 gap-14 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
           {/* Image */}
-          <div className="rounded-[10px] overflow-hidden aspect-[4/5] relative bg-navy">
+          <div className="rounded-[10px] overflow-hidden aspect-[16/9] md:aspect-[4/5] relative bg-navy">
             {previewSrc ? (
               <iframe
                 src={previewSrc}

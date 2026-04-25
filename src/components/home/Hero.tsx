@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { HOME } from "@/lib/content";
 import { Button } from "@/components/ui/Button";
-// Portrait → tall left column. Two landscapes → stacked right column.
 import imgTall from "@/assets/Home/Image2.jpeg";
 import imgWide1 from "@/assets/Home/Image1.jpg";
 import imgWide2 from "@/assets/Home/Image3.jpeg";
@@ -14,22 +13,24 @@ export function Hero() {
     <section
       className="relative flex items-end overflow-hidden"
       style={{
-        minHeight: "540px",
+        minHeight: "480px",
         height: "88vh",
         background: "var(--color-navy)",
       }}
     >
-      {/* Right-side image grid */}
+      {/* Mobile: full-bleed background image */}
+      <div className="absolute inset-0 md:hidden">
+        <Image src={imgTall} alt="" fill className="object-cover object-top" />
+      </div>
+
+      {/* Desktop: right-side image grid */}
       <div
-        className="absolute top-0 right-0 bottom-0 w-[46%] grid gap-1 p-1"
+        className="absolute top-0 right-0 bottom-0 hidden md:grid w-[46%] gap-1 p-1"
         style={{ gridTemplateColumns: "1fr 1fr" }}
       >
-        {/* Left column – tall portrait image */}
         <div className="relative overflow-hidden">
           <Image src={imgTall} alt="" fill className="object-cover" />
         </div>
-
-        {/* Right column – two landscape images stacked */}
         <div className="flex flex-col gap-1 overflow-hidden h-full">
           <div className="flex-1 relative overflow-hidden">
             <Image src={imgWide1} alt="" fill className="object-cover" />
@@ -40,9 +41,16 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Dark gradient veil */}
+      {/* Dark gradient veil — stronger on mobile to keep text readable */}
       <div
         className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(105deg, rgba(15,31,61,0.92) 0%, rgba(15,31,61,0.80) 50%, rgba(15,31,61,0.55) 100%)",
+        }}
+      />
+      <div
+        className="absolute inset-0 hidden md:block"
         style={{
           background:
             "linear-gradient(105deg, var(--color-navy) 38%, rgba(15,31,61,.6) 65%, rgba(15,31,61,.1) 100%)",
@@ -50,9 +58,8 @@ export function Hero() {
       />
 
       {/* Content */}
-      <div className="relative z-10 max-w-content mx-auto w-full px-8 pb-16">
-        {/* Eyebrow */}
-        <div className="inline-flex items-center gap-2 mb-5">
+      <div className="relative z-10 max-w-content mx-auto w-full px-5 md:px-8 pb-12 md:pb-16">
+        <div className="inline-flex items-center gap-2 mb-4 md:mb-5">
           <span
             className="w-1 h-1 rounded-full flex-shrink-0"
             style={{ background: "var(--color-gold-light)" }}
@@ -65,13 +72,11 @@ export function Hero() {
           </span>
         </div>
 
-        <h1
-          className="font-playfair text-[50px] font-semibold text-white leading-[1.08] max-w-[600px] mb-5 tracking-[-0.01em]"
-        >
+        <h1 className="font-playfair text-[36px] md:text-[50px] font-semibold text-white leading-[1.1] md:leading-[1.08] max-w-[600px] mb-4 md:mb-5 tracking-[-0.01em]">
           {hero.heading}
         </h1>
 
-        <p className="text-[15px] text-white/60 max-w-[460px] leading-[1.72] mb-8">
+        <p className="text-[14px] md:text-[15px] text-white/60 max-w-[460px] leading-[1.72] mb-6 md:mb-8">
           {hero.body}
         </p>
 
@@ -86,15 +91,15 @@ export function Hero() {
 
         {/* Stats */}
         <div
-          className="flex gap-9 mt-11 pt-7"
+          className="flex gap-6 md:gap-9 mt-8 md:mt-11 pt-6 md:pt-7"
           style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}
         >
           {hero.stats.map(({ number, label }) => (
             <div key={label}>
-              <div className="font-playfair text-[34px] font-semibold text-white leading-none">
+              <div className="font-playfair text-[28px] md:text-[34px] font-semibold text-white leading-none">
                 {number}
               </div>
-              <div className="text-[10.5px] text-white/60 uppercase tracking-[0.1em] mt-[5px]">
+              <div className="text-[10px] md:text-[10.5px] text-white/60 uppercase tracking-[0.1em] mt-[5px]">
                 {label}
               </div>
             </div>

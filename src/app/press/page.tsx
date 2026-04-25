@@ -29,12 +29,12 @@ export default async function PressPage() {
   return (
     <>
       {/* Page hero */}
-      <div className="bg-navy px-8 pt-[52px] pb-12">
+      <div className="bg-navy px-5 md:px-8 pt-[52px] pb-12">
         <div className="max-w-content mx-auto">
           <p className="text-[10px] font-semibold tracking-[0.18em] uppercase text-gold mb-3">
             {PRESS.eyebrow}
           </p>
-          <h1 className="font-playfair text-[38px] font-semibold text-white tracking-[-0.01em] mb-2">
+          <h1 className="font-playfair text-[30px] md:text-[38px] font-semibold text-white tracking-[-0.01em] mb-2">
             {PRESS.heading}
           </h1>
           <p className="text-[14.5px] text-white/60">{PRESS.subtitle}</p>

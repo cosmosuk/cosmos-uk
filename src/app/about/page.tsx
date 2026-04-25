@@ -48,22 +48,22 @@ export default async function AboutPage() {
   return (
     <>
       {/* Page hero */}
-      <div className="bg-navy px-8 pt-[52px] pb-12">
+      <div className="bg-navy px-5 md:px-8 pt-[52px] pb-12">
         <div className="max-w-content mx-auto">
           <p className="text-[10px] font-semibold tracking-[0.18em] uppercase text-gold mb-3">
             {ABOUT.eyebrow}
           </p>
-          <h1 className="font-playfair text-[38px] font-semibold text-white tracking-[-0.01em] mb-2">
+          <h1 className="font-playfair text-[30px] md:text-[38px] font-semibold text-white tracking-[-0.01em] mb-2">
             {ABOUT.heading}
           </h1>
-          <p className="text-[14.5px] text-white/60">{ABOUT.subtitle}</p>
+          <p className="text-[14px] md:text-[14.5px] text-white/60">{ABOUT.subtitle}</p>
         </div>
       </div>
 
       {/* Intro split */}
       <section className="section-wrap">
-        <div className="grid grid-cols-2 gap-14 items-center">
-          <div className="rounded-[10px] overflow-hidden aspect-[4/5] relative bg-navy">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
+          <div className="rounded-[10px] overflow-hidden aspect-[16/9] md:aspect-[4/5] relative bg-navy">
             {bannerPreview ? (
               <iframe
                 src={bannerPreview}
@@ -95,10 +95,7 @@ export default async function AboutPage() {
         </div>
 
         {/* Stats strip */}
-        <div
-          className="grid mt-12 border border-[var(--color-border)] rounded-[10px] overflow-hidden"
-          style={{ gridTemplateColumns: "repeat(3, 1fr)" }}
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-3 mt-12 border border-[var(--color-border)] rounded-[10px] overflow-hidden">
           {stats.map(({ number, label }, i) => (
             <div
               key={label}
@@ -122,7 +119,7 @@ export default async function AboutPage() {
       {/* History */}
       <section className="section-wrap">
         <SectionHeader eyebrow="Our History" title="The Humble Origins of COSMOS" />
-        <div className="columns-2 gap-10">
+        <div className="columns-1 sm:columns-2 gap-10">
           {historyParagraphs.map((p, i) => (
             <p
               key={i}
@@ -139,7 +136,7 @@ export default async function AboutPage() {
         <section className="bg-cream">
           <div className="section-wrap">
             <SectionHeader eyebrow="Member Organisations" title="Our Affiliates" />
-            <ul className="grid grid-cols-3 gap-x-6 gap-y-2.5">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-2.5">
               {affiliates.map((name) => (
                 <li key={name} className="flex items-start gap-2">
                   <span className="mt-[5px] shrink-0 w-1.5 h-1.5 rounded-full bg-gold" />
@@ -159,7 +156,7 @@ export default async function AboutPage() {
         <div className="section-wrap">
           <SectionHeader eyebrow={mission.eyebrow} title={mission.title} />
 
-          <div className="grid grid-cols-3 gap-3.5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
             {mission.cards.map((card, i) => {
               const bgClasses = ["bg-[#1c3260]", "bg-[#15274c]", "bg-[#1e3568]"];
               const icons = [

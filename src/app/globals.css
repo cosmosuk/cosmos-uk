@@ -96,6 +96,12 @@ body {
     margin-right: auto;
     padding: var(--section-padding-y) var(--section-padding-x);
   }
+
+  @media (max-width: 640px) {
+    .section-wrap {
+      padding: 40px 1.25rem;
+    }
+  }
 }
 
 /* ─── Scrollbar (optional subtle style) ─────────────────────────────────────── */
