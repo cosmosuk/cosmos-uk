@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import Image from "next/image";
 
 interface GalleryGroup {
   id: string;
@@ -22,8 +23,14 @@ function toThumbnailUrl(url: string): string {
   return url;
 }
 
-export function GalleryLightbox({ groups }: { groups: GalleryGroup[] }) {
-  const [activeGroup, setActiveGroup] = useState<number | null>(null);
+export function GalleryLightbox({
+  groups,
+  initialAlbum = null,
+}: {
+  groups: GalleryGroup[];
+  initialAlbum?: number | null;
+}) {
+  const [activeGroup, setActiveGroup] = useState<number | null>(initialAlbum);
   const [imageIndex, setImageIndex] = useState(0);
 
   const allImages =
@@ -80,21 +87,16 @@ export function GalleryLightbox({ groups }: { groups: GalleryGroup[] }) {
             className="group relative rounded-[10px] overflow-hidden border border-[var(--color-border)] bg-white hover:border-gold transition-colors duration-150 text-left"
           >
             <div className="aspect-square w-full relative overflow-hidden bg-navy">
-              <img
+              <Image
                 src={toThumbnailUrl(group.cover)}
                 alt={group.label}
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                fill
+                unoptimized
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
                 referrerPolicy="no-referrer"
               />
             </div>
-            <div className="p-3.5">
-              <p className="text-[13px] font-medium text-navy group-hover:text-gold transition-colors duration-150">
-                {group.label}
-              </p>
-              <p className="text-[11px] text-subtle mt-0.5">
-                {group.images.length} {group.images.length === 1 ? "photo" : "photos"}
-              </p>
-            </div>
+            <div className="p-3.5" />
           </button>
         ))}
       </div>
@@ -114,11 +116,8 @@ export function GalleryLightbox({ groups }: { groups: GalleryGroup[] }) {
             ×
           </button>
 
-          {/* Album title + counter */}
+          {/* Counter */}
           <div className="absolute top-5 left-5 z-10">
-            <p className="text-[10px] font-semibold tracking-[0.18em] uppercase text-gold mb-1">
-              {groups[activeGroup].label}
-            </p>
             <p className="text-[12px] text-white/50">
               {imageIndex + 1} of {allImages.length}
             </p>
@@ -173,7 +172,7 @@ export function GalleryLightbox({ groups }: { groups: GalleryGroup[] }) {
                   key={i}
                   onClick={() => setImageIndex(i)}
                   aria-label={`Go to image ${i + 1}`}
-                  className="w-12 h-12 rounded-[6px] overflow-hidden border-2 transition-all duration-150 flex-shrink-0"
+                  className="relative w-12 h-12 rounded-[6px] overflow-hidden border-2 transition-all duration-150 flex-shrink-0"
                   style={{
                     borderColor:
                       i === imageIndex
@@ -182,10 +181,12 @@ export function GalleryLightbox({ groups }: { groups: GalleryGroup[] }) {
                     opacity: i === imageIndex ? 1 : 0.5,
                   }}
                 >
-                  <img
+                  <Image
                     src={toThumbnailUrl(img)}
                     alt={`Thumbnail ${i + 1}`}
-                    className="w-full h-full object-cover"
+                    fill
+                    unoptimized
+                    className="object-cover"
                     referrerPolicy="no-referrer"
                   />
                 </button>

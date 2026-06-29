@@ -7,8 +7,21 @@ export const metadata = {
   title: "Gallery – COSMOS UK",
 };
 
-export default async function GalleryPage() {
+export default async function GalleryPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ album?: string }>;
+}) {
   const groups = await getGallery();
+  const params = await searchParams;
+  const albumParam = params.album;
+  const initialAlbum =
+    albumParam !== undefined &&
+    !isNaN(Number(albumParam)) &&
+    Number(albumParam) >= 0 &&
+    Number(albumParam) < groups.length
+      ? Number(albumParam)
+      : null;
 
   return (
     <>
@@ -28,7 +41,7 @@ export default async function GalleryPage() {
       </div>
 
       <section className="section-wrap">
-        <GalleryLightbox groups={groups} />
+        <GalleryLightbox groups={groups} initialAlbum={initialAlbum} />
       </section>
 
       <Footer />
