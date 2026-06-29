@@ -168,6 +168,34 @@ export async function getPressReleases(): Promise<PressRelease[]> {
     .sort((a, b) => b.created.getTime() - a.created.getTime());
 }
 
+// ─── Gallery ─────────────────────────────────────────────────────────────────
+
+export interface GalleryGroup {
+  id: string;
+  label: string;
+  cover: string;
+  images: string[];
+}
+
+export async function getGallery(): Promise<GalleryGroup[]> {
+  const rows = await loadCSV("DBGallery.csv");
+
+  const groups = new Map<string, string[]>();
+  for (const row of rows) {
+    const key = row.KEY;
+    const groupId = key.replace(/\.\d+$/, "");
+    if (!groups.has(groupId)) groups.set(groupId, []);
+    groups.get(groupId)!.push(row.LINK);
+  }
+
+  return Array.from(groups.entries()).map(([id, images], i) => ({
+    id,
+    label: `Album ${i + 1}`,
+    cover: images[0],
+    images,
+  }));
+}
+
 // ─── About us ─────────────────────────────────────────────────────────────────
 
 /** Returns the about us body text from DBAboutUs.csv */

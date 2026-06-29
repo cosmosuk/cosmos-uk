@@ -11,6 +11,7 @@ import logo from "@/assets/logo.svg";
 const NAV_LINKS = [
   { label: NAV.home, href: "/" },
   { label: NAV.press, href: "/press" },
+  { label: NAV.gallery, href: "/gallery" },
   { label: NAV.about, href: "/about" },
 ];
 

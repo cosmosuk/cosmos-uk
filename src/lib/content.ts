@@ -19,6 +19,7 @@ export const SITE = {
 export const NAV = {
   home: "Home",
   press: "Press releases",
+  gallery: "Gallery",
   about: "About",
   donate: "Support",
 } as const;
@@ -30,6 +31,7 @@ export const FOOTER_LINKS = {
     items: [
       { label: "Home", href: "/" },
       { label: "Press releases", href: "/press" },
+      { label: "Gallery", href: "/gallery" },
       { label: "About", href: "/about" },
     ],
   },
@@ -145,6 +147,13 @@ export const PRESS = {
       title: "COSMOS UK – 10th Annual General Meeting",
     },
   ],
+} as const;
+
+// ─── Gallery page ────────────────────────────────────────────────────────────
+export const GALLERY = {
+  eyebrow: "COSMOS UK",
+  heading: "Gallery",
+  subtitle: "Moments captured across our events, meetings and community work.",
 } as const;
 
 // ─── About page ───────────────────────────────────────────────────────────────
