@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 
 interface GalleryGroup {
@@ -23,13 +24,17 @@ function toThumbnailUrl(url: string): string {
   return url;
 }
 
-export function GalleryLightbox({
-  groups,
-  initialAlbum = null,
-}: {
-  groups: GalleryGroup[];
-  initialAlbum?: number | null;
-}) {
+function GalleryLightboxInner({ groups }: { groups: GalleryGroup[] }) {
+  const searchParams = useSearchParams();
+  const albumParam = searchParams.get("album");
+  const initialAlbum =
+    albumParam !== null &&
+    !isNaN(Number(albumParam)) &&
+    Number(albumParam) >= 0 &&
+    Number(albumParam) < groups.length
+      ? Number(albumParam)
+      : null;
+
   const [activeGroup, setActiveGroup] = useState<number | null>(initialAlbum);
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -196,5 +201,13 @@ export function GalleryLightbox({
         </div>
       )}
     </>
+  );
+}
+
+export function GalleryLightbox({ groups }: { groups: GalleryGroup[] }) {
+  return (
+    <Suspense fallback={null}>
+      <GalleryLightboxInner groups={groups} />
+    </Suspense>
   );
 }
