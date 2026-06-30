@@ -133,7 +133,11 @@ export default async function AboutPage() {
 
       {/* Affiliates */}
       {affiliates.length > 0 && (
-        <section className="bg-cream">
+        <section
+          id="member-organisations"
+          className="bg-cream"
+          style={{ scrollMarginTop: "var(--nav-height)" }}
+        >
           <div className="section-wrap">
             <SectionHeader eyebrow="Member Organisations" title="Our Affiliates" />
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-2.5">

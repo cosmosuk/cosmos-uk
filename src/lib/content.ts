@@ -21,6 +21,7 @@ export const NAV = {
   press: "Press releases",
   gallery: "Gallery",
   about: "About",
+  contact: "Contact us",
   donate: "Support",
 } as const;
 
@@ -38,9 +39,9 @@ export const FOOTER_LINKS = {
   community: {
     heading: "Community",
     items: [
-      { label: "Donate", href: "#" },
-      { label: "Contact us", href: "#" },
-      { label: "Member organisations", href: "#" },
+      // { label: "Donate", href: "#" },
+      { label: "Contact us", href: "/contact" },
+      { label: "Member organisations", href: "/about#member-organisations" },
     ],
   },
 } as const;
@@ -154,6 +155,13 @@ export const GALLERY = {
   eyebrow: "COSMOS UK",
   heading: "Gallery",
   subtitle: "Moments captured across our events, meetings and community work.",
+} as const;
+
+// ─── Contact page ────────────────────────────────────────────────────────────
+export const CONTACT = {
+  eyebrow: "COSMOS UK",
+  heading: "Contact us",
+  subtitle: "Have a question or want to get in touch? Send us a message below.",
 } as const;
 
 // ─── About page ───────────────────────────────────────────────────────────────

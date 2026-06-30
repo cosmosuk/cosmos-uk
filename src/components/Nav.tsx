@@ -13,6 +13,7 @@ const NAV_LINKS = [
   { label: NAV.press, href: "/press" },
   { label: NAV.gallery, href: "/gallery" },
   { label: NAV.about, href: "/about" },
+  { label: NAV.contact, href: "/contact" },
 ];
 
 export function Nav() {
@@ -63,14 +64,14 @@ export function Nav() {
             );
           })}
 
-          <button
+          {/* <button
             className="ml-2.5 px-[18px] py-2 rounded-md text-[13px] font-medium font-inter text-white transition-colors duration-150"
             style={{ background: "var(--color-gold)" }}
             onMouseEnter={(e) => ((e.target as HTMLElement).style.background = "var(--color-gold-light)")}
             onMouseLeave={(e) => ((e.target as HTMLElement).style.background = "var(--color-gold)")}
           >
             {NAV.donate}
-          </button>
+          </button> */}
         </div>
 
         {/* Mobile hamburger */}
@@ -104,12 +105,12 @@ export function Nav() {
               </Link>
             );
           })}
-          <button
+          {/* <button
             className="mt-1 mx-3.5 py-2.5 rounded-md text-[14px] font-medium text-white text-left px-3.5"
             style={{ background: "var(--color-gold)" }}
           >
             {NAV.donate}
-          </button>
+          </button> */}
         </div>
       )}
     </nav>
