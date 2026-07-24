@@ -1,10 +1,9 @@
 import Link from "next/link";
-import Image from "next/image";
 import { HOME } from "@/lib/content";
 import { getPressReleases } from "@/lib/csv";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
-import logo from "@/assets/logo.svg";
+import { PressReleaseIcon } from "@/components/ui/PressReleaseIcon";
 
 
 function formatDate(d: Date): string {
@@ -52,7 +51,7 @@ export async function NewsGrid() {
                 />
               ) : (
                 <div className="w-full h-full bg-navy flex items-center justify-center">
-                  <Image src={logo} alt="COSMOS UK" width={72} height={72} className="rounded-lg opacity-80" />
+                  <PressReleaseIcon />
                 </div>
               )}
             </div>
